@@ -115,6 +115,57 @@ toString(){
   string+=`null`
     console.log(string)
 }
+insertAt(value,index){
+    if(index==0||index>this.size()){
+        return `Min index is 0. Max index is ${this.size()}`
+    }
+    if(index==1){
+        this.prepend(value)
+    }else if(index==this.size()){
+        this.append(value)
+    }else{
+        let start=this.head
+        for(let i=1;i<=index;i++){
+            start=start.next
+            if(i==index){
+                let create=new Node(value)
+                create.next=start.prev
+                create.prev=start.prev.prev
+                start.prev.prev.next=create
+                start.prev.prev=create
+                create=start.prev
+                return start.prev
+                
+            }
+        }
+    }
+
+
+}
+removeAt(index){
+    if(index==0||index>this.size()){
+        return `Min index is 0. Max index is ${this.size()}`
+    }
+    if(index==1){
+        let newHead=this.head.next
+        newHead.prev=null
+        this.head=newHead
+         }
+    else if(index==this.size()){
+        this.pop()
+    }else{
+        let start=this.head
+        for(let i=1;i<=index;i++){
+            start=start.next
+            if(i==index){
+                let wantToDelete=start.prev
+                start.prev.prev.next=start.prev.next
+                start.prev.next.prev=start.prev.prev
+                wantToDelete=null
+            }
+        }
+    }     
+}
 }
 class Node{
     constructor(value,prev,next){
@@ -124,6 +175,9 @@ class Node{
         
     }
 }
+const list= new LinkedList
+
+
 
 
 
